@@ -7,11 +7,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    depends_on:
+      postgres_image:
+        condition: service_healthy
     ports:
       - "8005:80"
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+#      ConnectionStrings_Default: host=agsr_postgres_image;port=5432;database=postgres;username=dbuser;password=dbuser;
+#      CONNECTIONSTRINGS__DEFAULT: host=agsr_postgres_image;port=5432;database=postgres;username=dbuser;password=dbuser;
       ConnectionStrings__DefaultConnection: host=agsr_postgres_image;port=5432;database=postgres;username=dbuser;password=dbuser;
+#    networks:
+#      - test-network
 
   postgres_image:
     container_name: agsr_postgres_image
@@ -22,3 +29,15 @@ services:
       POSTGRES_USER: "dbuser"
       POSTGRES_PASSWORD: "dbuser"
       POSTGRES_DB: "postgres"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "postgres", "-U", "dbuser"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+#    networks:
+#      - test-network
+
+#networks:
+#  test-network:
+#    driver: bridge
