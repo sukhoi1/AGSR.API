@@ -10,8 +10,13 @@ services:
     ports:
       - "8005:80"
     environment:
-      DB_CONNECTION_STRING: "host=agsr_postgres_image;port=5432;dotabase=postgres;username=dbuser;password=dbuser;"
-  
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings_Default: host=agsr_postgres_image;port=5432;database=postgres;username=dbuser;password=dbuser;
+      CONNECTIONSTRINGS__DEFAULT: host=agsr_postgres_image;port=5432;database=postgres;username=dbuser;password=dbuser;
+      ConnectionStrings__DefaultConnection: host=agsr_postgres_image;port=5432;database=postgres;username=dbuser;password=dbuser;
+#    networks:
+#      - test-network
+
   postgres_image:
     container_name: agsr_postgres_image
     image: postgres:15.3
@@ -21,3 +26,9 @@ services:
       POSTGRES_USER: "dbuser"
       POSTGRES_PASSWORD: "dbuser"
       POSTGRES_DB: "postgres"
+#    networks:
+#      - test-network
+
+#networks:
+#  test-network:
+#    driver: bridge
