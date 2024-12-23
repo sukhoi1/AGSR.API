@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  dockerapi:
+    container_name: agsr_api
+    image: agsr_api:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8005:80"
+    environment:
+      DB_CONNECTION_STRING: "host=agsr_postgres_image;port=5432;dotabase=postgres;username=dbuser;password=dbuser;"
+  
+  postgres_image:
+    container_name: agsr_postgres_image
+    image: postgres:15.3
+    ports:
+      - "5015:5432"
+    environment:
+      POSTGRES_USER: "dbuser"
+      POSTGRES_PASSWORD: "dbuser"
+      POSTGRES_DB: "postgres"
