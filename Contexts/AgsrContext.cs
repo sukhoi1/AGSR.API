@@ -23,7 +23,7 @@ public class AgsrContext : DbContext
                                       .IsRequired();
         modelBuilder.Entity<Patient>().Property(x => x.Use).HasColumnName("use");
         modelBuilder.Entity<Patient>().Property(x => x.Family).HasColumnName("family").IsRequired();
-        modelBuilder.Entity<Patient>().Property(x => x.GivenJson).HasColumnName("given_json");
+        modelBuilder.Entity<Patient>().Property(x => x.Given).HasColumnName("given");
         modelBuilder.Entity<Patient>().Property(x => x.Gender).HasColumnName("gender");
         modelBuilder.Entity<Patient>().Property(x => x.BirthDate).HasColumnName("birth_date").IsRequired();
         modelBuilder.Entity<Patient>().Property(x => x.Active).HasColumnName("active");
