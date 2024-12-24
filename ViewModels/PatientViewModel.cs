@@ -1,6 +1,8 @@
-﻿namespace AGSR.TestTask.Models;
+﻿using AGSR.TestTask.Models;
 
-public class Patient
+namespace AGSR.TestTask.ViewModels;
+
+public class PatientViewModel
 {
     public Guid Id { get; set; }
     public string? Use { get; set; }
@@ -9,12 +11,4 @@ public class Patient
     public GenderEnum? Gender { get; set; }
     public DateTime BirthDate { get; set; }
     public bool? Active { get; set; }
-}
-
-public enum GenderEnum
-{
-    Male,
-    Female,
-    Other,
-    Unknown
 }
