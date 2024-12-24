@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "691b9e03-7d89-4978-a640-0f6d8877c3d7",
+		"name": "AGSR.Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ListPatients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8005/Patient/patients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						"patients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPatient",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8005/Patient/3fa85f64-5717-4562-b3fc-2c963f66afa6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						"3fa85f64-5717-4562-b3fc-2c963f66afa6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddPatient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"use\": \"string\",\r\n  \"family\": \"string\",\r\n  \"given\": [\r\n    \"string\"\r\n  ],\r\n  \"gender\": \"male\",\r\n  \"birthDate\": \"2024-12-24T11:19:33.911Z\",\r\n  \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8005/Patient/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePatient",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"use\": \"string\",\r\n  \"family\": \"string\",\r\n  \"given\": [\r\n    \"string\"\r\n  ],\r\n  \"gender\": \"female\",\r\n  \"birthDate\": \"2024-12-24T11:19:33.911Z\",\r\n  \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8005/Patient/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePatient",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8005/Patient?patientId=3fa85f64-5717-4562-b3fc-2c963f66afa6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient"
+					],
+					"query": [
+						{
+							"key": "patientId",
+							"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
