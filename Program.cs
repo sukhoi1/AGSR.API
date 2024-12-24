@@ -21,7 +21,7 @@ public class Program
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(x => x.EnableAnnotations());
 
         builder.Services.AddSingleton(provider => new MapperConfiguration(config =>
         {
