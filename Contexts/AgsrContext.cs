@@ -15,6 +15,7 @@ public class AgsrContext : DbContext
 
         modelBuilder.Entity<PatientModel>().HasKey(x => x.Id);
         modelBuilder.Entity<PatientModel>().ToTable("patient");
+        modelBuilder.Entity<PatientModel>().HasCheckConstraint("CK_Patient_Gender", "Gender IN ('male','female','other','unknown')");
 
         modelBuilder.Entity<PatientModel>().Property(x => x.Id)
                                       .HasColumnName("id")

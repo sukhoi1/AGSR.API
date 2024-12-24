@@ -6,14 +6,14 @@ public class PatientModel
     public string? Use { get; set; }
     public string Family { get; set; }
     public string[]? Given { get; set; }
-    public GenderEnum? Gender { get; set; }
+    public string? Gender { get; set; }
     public DateTime BirthDate { get; set; }
     public bool? Active { get; set; }
 }
 
 public enum GenderEnum
 {
-    Male,
+    Male = 0,
     Female,
     Other,
     Unknown

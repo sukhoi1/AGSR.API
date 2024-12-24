@@ -1,7 +1,6 @@
-using System;
 using AGSR.TestTask.Contexts;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace AGSR.TestTask;
@@ -24,6 +23,12 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddSingleton(provider => new MapperConfiguration(config =>
+        {
+            var profiles = typeof(Program).Assembly.GetTypes().Where(x => typeof(Profile).IsAssignableFrom(x));
+            profiles.ToList().ForEach(x => config.AddProfile(Activator.CreateInstance(x) as Profile));
+        }).CreateMapper());
+
         var conectionString = builder.Configuration.GetConnectionString("DefaultConnection");
         builder.Services.AddDbContext<AgsrContext>(o => o.UseNpgsql(conectionString));
 
@@ -32,8 +37,8 @@ public class Program
         // Configure the HTTP request pipeline.
         //if (app.Environment.IsDevelopment())
         //{
-            app.UseSwagger();
-            app.UseSwaggerUI();
+        app.UseSwagger();
+        app.UseSwaggerUI();
         //}
 
         using var serviceProvider = builder.Services.BuildServiceProvider();

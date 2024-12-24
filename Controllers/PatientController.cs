@@ -1,6 +1,7 @@
 ﻿using AGSR.TestTask.Contexts;
 using AGSR.TestTask.Models;
 using AGSR.TestTask.ViewModels;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
@@ -12,10 +13,12 @@ namespace AGSR.TestTask.Controllers;
 public class PatientController : ControllerBase
 {
     private readonly AgsrContext _agsrContext;
+    private readonly IMapper _mapper;
 
-    public PatientController(AgsrContext agsrContext)
+    public PatientController(AgsrContext agsrContext, IMapper mapper)
     {
         _agsrContext = agsrContext;
+        _mapper = mapper;
     }
 
     //[SwaggerOperation(Summary= "List all Patients.")]
@@ -39,48 +42,21 @@ public class PatientController : ControllerBase
             return NotFound();
         }
 
-        return Ok(new PatientWithOptionalNameViewModel
-        {
-            Name = new PatientNameViewModel
-            {
-                Id = patient.Id,
-                Family = patient.Family,
-                Given = patient.Given,
-                Use = patient.Use
-            },
-            Active = patient.Active,
-            BirthDate = patient.BirthDate,
-            Gender = patient.Gender,
-        });
+        var patientVM = _mapper.Map<PatientWithOptionalNameViewModel>(patient);
+
+        return Ok(patientVM);
     }
 
     [SwaggerOperation(Summary = "Add single Patient.")]
     [HttpPost]
-    public async Task<ActionResult> AddPatient(PatientViewModel patientViewModel)
+    public async Task<ActionResult> AddPatient(PatientViewModel patientVM)
     {
-        var patient = await _agsrContext.Patients.AddAsync(new PatientModel
-        {
-            Family = patientViewModel.Family,
-            Given = patientViewModel.Given,
-            Use = patientViewModel.Use,
-            Active = patientViewModel.Active,
-            BirthDate = patientViewModel.BirthDate,
-            Gender = patientViewModel.Gender
-        });
+        var patient = _mapper.Map<PatientModel>(patientVM);
 
-        return Ok(new PatientWithOptionalNameViewModel
-        {
-            Name = new PatientNameViewModel
-            {
-                Id = patient.Entity.Id,
-                Family = patient.Entity.Family,
-                Given = patient.Entity.Given,
-                Use = patient.Entity.Use
-            },
-            Active = patient.Entity.Active,
-            BirthDate = patient.Entity.BirthDate,
-            Gender = patient.Entity.Gender,
-        });
+        var patientEntity = await _agsrContext.Patients.AddAsync(patient);
+        await _agsrContext.SaveChangesAsync();
+
+        return Ok(patientEntity.Entity);
     }
 
     //[SwaggerOperation(Summary = "Update single Patient.")]
