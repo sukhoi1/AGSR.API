@@ -1,6 +1,4 @@
-﻿using AGSR.TestTask.Models;
-
-namespace AGSR.TestTask.ViewModels;
+﻿namespace AGSR.TestTask.ViewModels;
 
 public class PatientViewModel
 {

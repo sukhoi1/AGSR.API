@@ -21,16 +21,16 @@ public class PatientController : ControllerBase
         _mapper = mapper;
     }
 
-    //[SwaggerOperation(Summary= "List all Patients.")]
-    //[HttpGet]
-    //public async Task<ActionResult> GetPatients()
-    //{
-    //    var patients = await _agsrContext.Patients.ToListAsync();
+    [SwaggerOperation(Summary = "List all Patients.")]
+    [HttpGet("patients")]
+    public async Task<ActionResult> GetPatients()
+    {
+        var patients = await _agsrContext.Patients.ToListAsync();
 
-    //    var patientsVM = null;
+        var patientVMs = _mapper.Map<List<PatientWithOptionalNameViewModel>>(patients);
 
-    //    return patientsVM;
-    //}
+        return Ok(patientVMs);
+    }
 
     [SwaggerOperation(Summary = "Get single Patient.")]
     [HttpGet("{patientId}")]
@@ -59,23 +59,29 @@ public class PatientController : ControllerBase
         return Ok(patientEntity.Entity);
     }
 
-    //[SwaggerOperation(Summary = "Update single Patient.")]
-    //[HttpPut()]
-    //public async Task<ActionResult> UpdatePatient(PatientViewModel patientViewModel)
-    //{
-    //    var entity = await _agsrContext.Patients.FirstOrDefaultAsync(x => x.Id == patientViewModel.Id);
-    //    if (entity == null)
-    //    {
-    //        return NotFound();
-    //    }
+    [SwaggerOperation(Summary = "Update single Patient.")]
+    [HttpPut()]
+    public async Task<ActionResult> UpdatePatient(PatientViewModel patientViewModel)
+    {
+        var patient = await _agsrContext.Patients.FirstOrDefaultAsync(x => x.Id == patientViewModel.Id);
+        if (patient == null)
+        {
+            return NotFound();
+        }
 
-    //    entity.BirthDate = patientViewModel.BirthDate;
-    //    entity.Given = patientViewModel.Given;
+        patient.Use = patientViewModel.Use;
+        patient.Family = patientViewModel.Family;
+        patient.Given = patientViewModel.Given;
+        patient.Gender = patientViewModel.Gender;
+        patient.BirthDate = patientViewModel.BirthDate;
+        patient.Active = patientViewModel.Active;
 
-    //    await _agsrContext.SaveChangesAsync();
+        _agsrContext.Patients.Update(patient);
+        await _agsrContext.SaveChangesAsync();
 
-    //    return Ok();
-    //}
+        var updatedPatientVM = _mapper.Map<PatientViewModel>(patient);
+        return Ok(updatedPatientVM);
+    }
 
     [SwaggerOperation(Summary = "Delete single Patient.")]
     [HttpDelete()]
