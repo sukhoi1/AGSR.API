@@ -35,83 +35,73 @@ public class PatientController : ControllerBase
         return Ok(patientVMs);
     }
 
-
-    /// <summary>
-    /// In order to avoid unintentional overlapping of ranges, requests can increase the specificity of their request. For example, the test for sa2013-01-14T00:00:00 is a much clearer test.
-    /// </summary>
-    [SwaggerOperation(Summary = "List all Patients, param example: 'eq2013-01-14T00:00:00Z'.")]
+    [SwaggerOperation(Summary = "List all Patients, param example: 'eq2013-01-14T00:00:00Z'. eq,ne,lt,gt,ge,le takes time as param; sa,eb,ap takes date as range.")]
     [HttpGet("birthDate")]
-    public async Task<ActionResult> GetPatientsByBirthDate([FromQuery] string birthDate = "eq2013-01-14T00:00:00Z")
+    public async Task<ActionResult> GetPatientsByBirthDate([FromQuery] string[] date) // eq2013-01-14T00:00:00Z
     {
         var query = _agsrContext.Patients.AsQueryable();
 
-        if (birthDate == null)
+        if (date?.Length == 0)
         {
             var result = _mapper.Map<List<PatientWithOptionalNameViewModel>>(query);
             return Ok(result);
         }
 
-        try
+        foreach (var birthDate in date)
         {
             var filterType = birthDate.Substring(0, 2).ToString().ToLower();
             var datePart = birthDate.Substring(2).ToString();
-            var date = DateTimeOffset.Parse(datePart, CultureInfo.InvariantCulture);
-
+            var parsedDate = DateTimeOffset.Parse(datePart, CultureInfo.InvariantCulture);
             var param = Expression.Parameter(typeof(PatientModel), "p");
             var member = Expression.Property(param, "BirthDate");
+
+            var leftDate = parsedDate.UtcDateTime.Date;
+            var rightDate = parsedDate.UtcDateTime.AddDays(1).Date;
 
             switch (filterType)
             {
                 case "eq":
-                    var expressionEQ = DynamicExpressions.CreateEQExpression(param, member, date); // eq2013-01-14T00:00:00Z
-                    query = query.Where(expressionEQ);
+                    //var expressionEQ = DynamicExpressions.CreateEQExpression(param, member, parsedDate); // eq2013-01-14T00:00:00Z
+                    query = query.Where(x => x.BirthDate == parsedDate);
                     break;
                 case "ne":
-                    var expressionNE = DynamicExpressions.CreateNEExpression(param, member, date); // ne2013-01-14T00:00:00Z
-                    query = query.Where(expressionNE);
+                    //var expressionNE = DynamicExpressions.CreateNEExpression(param, member, parsedDate); // ne2013-01-14T00:00:00Z
+                    query = query.Where(x => x.BirthDate != parsedDate);
                     break;
 
                 case "lt":
-                    query = query.Where(x => x.BirthDate < date.UtcDateTime);
+                    query = query.Where(x => x.BirthDate < parsedDate.UtcDateTime);
                     break;
                 case "gt":
-                    query = query.Where(x => x.BirthDate > date.UtcDateTime);
+                    query = query.Where(x => x.BirthDate > parsedDate.UtcDateTime);
                     break;
 
                 case "ge":
-                    query = query.Where(x => x.BirthDate >= date.UtcDateTime);
+                    query = query.Where(x => x.BirthDate >= parsedDate.UtcDateTime);
                     break;
                 case "le":
-                    query = query.Where(x => x.BirthDate <= date.UtcDateTime);
+                    query = query.Where(x => x.BirthDate <= parsedDate.UtcDateTime);
                     break;
 
                 case "sa": // starts after
-                    var rightDate = date.UtcDateTime;
-                    query = query.Where(x => rightDate < x.BirthDate);
+                    query = query.Where(x => rightDate <= x.BirthDate);
                     break;
                 case "eb": // ends before
-                    var leftDate = date.UtcDateTime;
                     query = query.Where(x => x.BirthDate < leftDate);
                     break;
                 case "ap": // the resource value is approximately the same to the parameter value
-                    var leftDateAP = date.UtcDateTime;
-                    var rightDateAP = date.UtcDateTime;
-                    query = query.Where(x => leftDateAP <= x.BirthDate && x.BirthDate <= rightDateAP);
+                    query = query.Where(x => leftDate <= x.BirthDate && x.BirthDate < rightDate);
                     break;
 
                 default:
                     throw new ArgumentOutOfRangeException(filterType);
             }
-
-            var queryString = query.ToQueryString();
-            var queryList = query.ToList();
-
-            return Ok(_mapper.Map<List<PatientWithOptionalNameViewModel>>(queryList));
         }
-        catch (Exception e)
-        { 
-            return BadRequest(e.Message);
-        }
+
+        var queryString = query.ToQueryString();
+        var queryList = query.ToList();
+
+        return Ok(_mapper.Map<List<PatientWithOptionalNameViewModel>>(queryList));
     }
 
     [SwaggerOperation(Summary = "Get single Patient.")]
