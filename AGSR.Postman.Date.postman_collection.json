@@ -1,0 +1,360 @@
+{
+	"info": {
+		"_postman_id": "ead0025d-3eac-4624-ac75-c91d349a65c0",
+		"name": "AGSR.Postman.Date",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AddPatient_1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"use\": \"string\",\r\n  \"family\": \"string\",\r\n  \"given\": [\r\n    \"string\"\r\n  ],\r\n  \"gender\": \"male\",\r\n  \"birthDate\": \"2013-01-14T00:00:00.000Z\",\r\n  \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8005/Patient/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddPatient_2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa7\",\r\n  \"use\": \"string\",\r\n  \"family\": \"string\",\r\n  \"given\": [\r\n    \"string\"\r\n  ],\r\n  \"gender\": \"male\",\r\n  \"birthDate\": \"2013-01-14T10:00:00.000Z\",\r\n  \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8005/Patient/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddPatient_3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa8\",\r\n  \"use\": \"string\",\r\n  \"family\": \"string\",\r\n  \"given\": [\r\n    \"string\"\r\n  ],\r\n  \"gender\": \"male\",\r\n  \"birthDate\": \"2013-01-15T00:00:00.000Z\",\r\n  \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8005/Patient/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPatientByDate_EQ",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8005/Patient/birthDate?date=eq2013-01-14T00:00:00.000Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						"birthDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "eq2013-01-14T00:00:00.000Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPatientByDate_NE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8005/Patient/birthDate?date=ne2013-01-14T00:00:00.000Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						"birthDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "ne2013-01-14T00:00:00.000Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPatientByDate_LT",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8005/Patient/birthDate?date=lt2013-01-14T09:00:00.000Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						"birthDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "lt2013-01-14T09:00:00.000Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPatientByDate_GT",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8005/Patient/birthDate?date=gt2013-01-14T11:00:00.000Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						"birthDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "gt2013-01-14T11:00:00.000Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPatientByDate_GE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8005/Patient/birthDate?date=ge2013-01-14T10:00:00.000Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						"birthDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "ge2013-01-14T10:00:00.000Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPatientByDate_LE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8005/Patient/birthDate?date=le2013-01-14T10:00:00.000Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						"birthDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "le2013-01-14T10:00:00.000Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPatientByDate_SA",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8005/Patient/birthDate?date=sa2013-01-14T10:00:00.000Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						"birthDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "sa2013-01-14T10:00:00.000Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPatientByDate_EB",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8005/Patient/birthDate?date=eb2013-01-15T10:00:00.000Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						"birthDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "eb2013-01-15T10:00:00.000Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPatientByDate_AP",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8005/Patient/birthDate?date=ap2013-01-15T00:00:00.000Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						"birthDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "ap2013-01-15T00:00:00.000Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPatientByDate_NE_SA",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8005/Patient/birthDate?date=ne2013-01-15T00:00:00.000Z&date=gt2013-01-14T00:00:00.000Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8005",
+					"path": [
+						"Patient",
+						"birthDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "ne2013-01-15T00:00:00.000Z"
+						},
+						{
+							"key": "date",
+							"value": "gt2013-01-14T00:00:00.000Z"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
