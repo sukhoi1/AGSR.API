@@ -2,5 +2,6 @@ version: '2'
 
 services:
   cnsl:
+    container_name: agsr_console
     build: .
-    image: cnsl:v1
+    image: agsr_console:v1

@@ -1,0 +1,4 @@
+1. Please open AGSR.API, then run 'docker compose up'
+http://localhost:8005/swagger/index.html will be available;
+2. Please open AGSR.Console, then run 'docker compose up'
+then /Patient/patients will return 100 objects.
