@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Linq.Expressions;
 using AGSR.TestTask.Contexts;
-using AGSR.TestTask.DynamicQueryExpressions;
 using AGSR.TestTask.Models;
 using AGSR.TestTask.ViewModels;
 using AutoMapper;
@@ -17,11 +16,13 @@ public class PatientController : ControllerBase
 {
     private readonly AgsrContext _agsrContext;
     private readonly IMapper _mapper;
+    private readonly Serilog.ILogger _logger;
 
-    public PatientController(AgsrContext agsrContext, IMapper mapper)
+    public PatientController(AgsrContext agsrContext, IMapper mapper, Serilog.ILogger logger)
     {
         _agsrContext = agsrContext;
         _mapper = mapper;
+        _logger = logger;
     }
 
     [SwaggerOperation(Summary = "List all Patients.")]
@@ -119,20 +120,28 @@ public class PatientController : ControllerBase
         return Ok(patientVM);
     }
 
-    [SwaggerOperation(Summary = "Add single Patient.")]
+    [SwaggerOperation(Summary = "Add Patients.")]
     [HttpPost]
-    public async Task<ActionResult> AddPatient(PatientViewModel patientVM)
+    public async Task<ActionResult> AddPatients(PatientViewModel[] patientVMs)
     {
-        var patient = _mapper.Map<PatientModel>(patientVM);
+        try
+        {
+            var patients = _mapper.Map<List<PatientModel>>(patientVMs);
 
-        var patientEntity = await _agsrContext.Patients.AddAsync(patient);
-        await _agsrContext.SaveChangesAsync();
+            await _agsrContext.Patients.AddRangeAsync(patients);
+            await _agsrContext.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            _logger.Error(e, e.InnerException?.Message ?? e.Message );
+            throw;
+        }
 
-        return Ok(patientEntity.Entity);
+        return Ok();
     }
 
     [SwaggerOperation(Summary = "Update single Patient.")]
-    [HttpPut()]
+    [HttpPut]
     public async Task<ActionResult> UpdatePatient(PatientViewModel patientViewModel)
     {
         var patient = await _agsrContext.Patients.FirstOrDefaultAsync(x => x.Id == patientViewModel.Id);
@@ -156,7 +165,7 @@ public class PatientController : ControllerBase
     }
 
     [SwaggerOperation(Summary = "Delete single Patient.")]
-    [HttpDelete()]
+    [HttpDelete]
     public async Task<ActionResult> DeletePatient(Guid patientId)
     {
         var patient = await _agsrContext.FindAsync<PatientModel>(patientId);

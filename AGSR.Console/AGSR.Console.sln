@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AGSR.Console", "AGSR.Console.csproj", "{5DAE73EE-4950-4161-97B2-2C10E6CC2199}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5DAE73EE-4950-4161-97B2-2C10E6CC2199}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DAE73EE-4950-4161-97B2-2C10E6CC2199}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DAE73EE-4950-4161-97B2-2C10E6CC2199}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DAE73EE-4950-4161-97B2-2C10E6CC2199}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {97BC9283-882E-47CB-B778-7DF9DC29EB8E}
+	EndGlobalSection
+EndGlobal

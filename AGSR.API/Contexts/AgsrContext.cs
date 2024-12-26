@@ -5,7 +5,10 @@ namespace AGSR.TestTask.Contexts;
 
 public class AgsrContext : DbContext
 {
-    public AgsrContext(DbContextOptions<AgsrContext> options) : base(options) {}
+    public AgsrContext(DbContextOptions<AgsrContext> options) : base(options) 
+    {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+    }
 
     public DbSet<PatientModel> Patients { get; set; }
 
