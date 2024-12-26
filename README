@@ -2,3 +2,7 @@
 http://localhost:8005/swagger/index.html will be available;
 2. Please open AGSR.Console, then run 'docker compose up'
 then /Patient/patients will return 100 objects.
+
+POSTMAN FILE PATHS
+AGSR.API/AGSR.Postman.Date.postman_collection.json
+AGSR.API/AGSR.Postman.postman_collection.json
