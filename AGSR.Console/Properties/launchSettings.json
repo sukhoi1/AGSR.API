@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "AGSR.Console": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

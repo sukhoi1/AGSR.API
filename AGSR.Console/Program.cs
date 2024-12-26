@@ -34,6 +34,7 @@ internal class Program
         var patientVMs = Enumerable.Range(1, 100).Select(x => fixture.Create<PatientViewModel>()).ToList();
 
         using var client = new HttpClient();
+        System.Console.WriteLine(settings.ApiUrl);
         var response = await client.PostAsJsonAsync(settings.ApiUrl, patientVMs);
         if (response.IsSuccessStatusCode)
         {

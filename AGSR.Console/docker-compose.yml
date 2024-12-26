@@ -1,0 +1,6 @@
+version: '2'
+
+services:
+  cnsl:
+    build: .
+    image: cnsl:v1
